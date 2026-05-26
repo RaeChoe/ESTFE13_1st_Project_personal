@@ -7,8 +7,6 @@ popupCloseBtn.addEventListener("click", () => {
   popup.style.visibility = "hidden";
   if (agree.checked) {
     createCookie("popup", "close", 1);
-  } else {
-    createCookie("popup", "close", -1);
   }
 });
 
