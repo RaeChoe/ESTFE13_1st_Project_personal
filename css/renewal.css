@@ -1,6 +1,5 @@
 /* =========================================================
    EST CAMP - 2026 개인 리뉴얼 스타일
-   기존 HTML/CSS 구조를 유지하면서 UI와 반응형을 보완
    ========================================================= */
 
 :root {
@@ -62,7 +61,6 @@ body > main {
 
 .container {
   width: min(calc(100% - 48px), var(--renew-container));
-
   max-width: var(--renew-container);
 }
 
@@ -181,7 +179,6 @@ header.renew-header {
   right: 0;
 }
 
-/* 현재 보고 있는 섹션 */
 .renew-header .nav-link.active,
 .renew-header .nav-link[aria-current="location"] {
   color: var(--renew-green-dark);
@@ -234,42 +231,44 @@ header.renew-header {
 .hero .container {
   position: relative;
 
+  isolation: isolate;
+
   gap: 64px;
 }
 
-.hero::before {
+.hero .container::after {
   content: "";
 
   position: absolute;
 
+  z-index: -1;
+
   top: 50%;
-  right: 3%;
+  right: -55px;
 
-  width: 650px;
-  height: 540px;
+  width: 590px;
+  height: 510px;
 
-  border-radius: 44% 56% 51% 49% / 48% 42% 58% 52%;
+  border-radius: 50%;
 
   background:
     radial-gradient(
-      circle at 32% 48%,
-      rgba(77, 226, 155, 0.62) 0%,
-      rgba(77, 226, 155, 0.38) 32%,
-      rgba(77, 226, 155, 0.12) 58%,
-      transparent 76%
+      ellipse at 36% 48%,
+      rgba(73, 224, 152, 0.58) 0%,
+      rgba(73, 224, 152, 0.4) 28%,
+      rgba(73, 224, 152, 0.17) 50%,
+      transparent 72%
     ),
     radial-gradient(
-      circle at 78% 54%,
-      rgba(82, 164, 244, 0.24) 0%,
-      rgba(82, 164, 244, 0.1) 44%,
-      transparent 70%
+      ellipse at 75% 50%,
+      rgba(89, 170, 241, 0.3) 0%,
+      rgba(89, 170, 241, 0.16) 35%,
+      transparent 68%
     );
 
-  filter: blur(30px);
+  filter: blur(28px);
 
-  opacity: 0.95;
-
-  transform: translateY(-50%) rotate(-4deg);
+  transform: translateY(-50%);
 
   pointer-events: none;
 }
@@ -353,7 +352,6 @@ header.renew-header {
   box-shadow: none;
 }
 
-/* 히어로 이미지 */
 .hero img {
   position: relative;
 
@@ -420,7 +418,6 @@ header.renew-header {
     border-color 200ms ease;
 }
 
-/* 너무 강하지 않은 hover */
 .question-container:hover {
   transform: translateY(-2px);
 
@@ -446,39 +443,188 @@ header.renew-header {
 }
 
 /* =========================================================
-   프로그램 / 커리큘럼
+   프로그램 소개
    ========================================================= */
 
 .program .container {
   gap: 72px;
+
+  align-items: flex-start;
 }
 
 .program .title {
+  flex: 0 0 290px;
+
   min-width: 290px;
+
+  padding-top: 56px;
 }
 
 .program-list {
+  flex: 1 1 auto;
+
   min-width: 0;
+
+  overflow: visible;
+}
+
+/* 커리큘럼 진행 단계 */
+
+.progress-wrap {
+  position: relative;
+
+  width: 100%;
+
+  padding: 20px 10px 22px;
+
+  box-sizing: border-box;
+
+  overflow: visible;
 }
 
 .progress {
-  --curriculum-progress: 0%;
+  --curriculum-progress: 0;
 
   position: relative;
+
+  width: 100%;
+
+  margin: 0;
+
+  padding: 0;
+
+  overflow: visible;
 }
 
-/* 현재 슬라이드까지 진행선 표시 */
+/* 전체 진행선 */
+.progress::before {
+  content: "";
+
+  position: absolute;
+
+  z-index: 0;
+
+  top: 17px;
+  right: 16px;
+  left: 16px;
+
+  height: 2px;
+
+  /* index.css의 기존 점선 제거 */
+  border: 0 !important;
+  border-top: 0 !important;
+
+  background: none;
+
+  background-image: repeating-linear-gradient(
+    to right,
+    #475467 0,
+    #475467 6px,
+    transparent 6px,
+    transparent 11px
+  );
+}
+
+/* 현재 단계까지 진행선 */
 .progress::after {
-  width: var(--curriculum-progress);
+  content: "";
 
-  transition: width 420ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  position: absolute;
+
+  z-index: 1;
+
+  top: 17px;
+  left: 16px;
+
+  width: calc((100% - 32px) * var(--curriculum-progress));
+
+  height: 2px;
+
+  border: 0 !important;
+  border-top: 0 !important;
+
+  background: none;
+
+  background-image: repeating-linear-gradient(
+    to right,
+    #62dfa5 0,
+    #62dfa5 6px,
+    transparent 6px,
+    transparent 11px
+  );
+
+  transition: width 400ms ease;
 }
 
-.sliderwrap {
+.progress > li {
   position: relative;
 
-  min-height: 430px;
-  height: auto;
+  z-index: 2;
+
+  flex: 0 0 auto;
+}
+
+.progress-dot {
+  position: relative;
+
+  gap: 10px;
+}
+
+.progress-dot .circle {
+  width: 32px;
+  height: 32px;
+
+  border: 7px solid #d9dee5;
+
+  border-radius: 50%;
+
+  box-sizing: border-box;
+
+  background: #263445;
+
+  transition:
+    background-color 300ms ease,
+    border-color 300ms ease,
+    transform 300ms ease;
+}
+
+.progress-dot .circle.small {
+  width: 22px;
+  height: 22px;
+
+  margin-top: 5px;
+
+  border-width: 6px;
+}
+
+.progress > li.active .circle {
+  border-color: #cdf5e1;
+
+  background: #62dfa5;
+}
+
+.progress > li.active .circle.small {
+  border-color: #d9f8e9;
+
+  background: #62dfa5;
+}
+
+.progress > li.current .circle {
+  transform: scale(1.12);
+}
+
+.progress .text-caption {
+  white-space: nowrap;
+}
+
+/* Swiper */
+
+.curriculum-swiper {
+  position: relative;
+
+  width: 100%;
+
+  margin-top: 26px;
 
   overflow: hidden;
 
@@ -491,57 +637,52 @@ header.renew-header {
   box-shadow: var(--renew-shadow);
 }
 
-.slidercontainer {
+.curriculum-swiper .swiper-wrapper {
+  align-items: stretch;
+}
+
+.curriculum-swiper .swiper-slide {
+  height: auto;
+
+  box-sizing: border-box;
+
+  background: var(--renew-surface);
+}
+
+.curriculum-slide {
+  display: flex;
+
+  flex-direction: column;
+
   width: 100%;
-  height: auto;
 
-  overflow: hidden;
-}
+  min-height: 410px;
 
-/*
-  slidercontainer 안의 li 한 개 안에
-  4개의 커리큘럼 슬라이드가 들어있는 구조입니다.
-*/
-.slidercontainer > li {
-  width: 400%;
-  max-width: none;
-
-  scroll-snap-align: start;
-
-  transform: translate3d(0, 0, 0);
-
-  transition: transform 420ms cubic-bezier(0.22, 0.61, 0.36, 1);
-
-  will-change: transform;
-}
-
-.slider {
-  flex: 0 0 25%;
-
-  width: 25%;
-  max-width: none;
-
-  min-width: 0;
-
-  height: auto;
-
-  padding: 12px 0 28px;
+  padding: 26px 24px 34px;
 
   box-sizing: border-box;
 }
 
-.slider > .text-heading6 {
-  padding: 0 72px;
+.curriculum-slide > .text-heading6 {
+  margin: 0;
+
+  padding: 0 58px;
 
   font-size: 28px;
 
-  line-height: 1.3;
+  line-height: 1.35;
+
+  text-align: center;
 }
 
 .slider-description {
+  width: min(100%, 650px);
+
   min-height: 48px;
 
-  padding: 0 72px;
+  margin: 14px auto 0;
+
+  padding: 0 60px;
 
   box-sizing: border-box;
 
@@ -549,54 +690,146 @@ header.renew-header {
 
   font-size: 15px;
 
-  line-height: 1.65;
+  line-height: 1.7;
 
   text-align: center;
 }
 
 .slider-content {
-  width: calc(100% - 48px);
-
-  max-width: none;
+  width: 100%;
 
   min-height: 260px;
-  height: auto;
 
-  margin: 10px 24px 0;
+  margin-top: 20px;
 
-  border: 1px solid rgba(21, 184, 106, 0.45);
+  padding: 30px 42px;
+
+  box-sizing: border-box;
+
+  gap: 38px;
+
+  border: 1px solid rgba(21, 184, 106, 0.5);
 
   border-radius: 16px;
 
-  background: linear-gradient(180deg, #ffffff, #fbfefc);
-
-  box-sizing: border-box;
+  background: linear-gradient(180deg, #ffffff 0%, #fbfefc 100%);
 }
 
-.slider:last-child .slider-content {
-  border-right: 1px solid rgba(21, 184, 106, 0.45);
+.curriculum-image {
+  display: flex;
+
+  flex: 0 0 260px;
+
+  align-items: center;
+  justify-content: center;
 }
 
-/* 커리큘럼 이전 / 다음 버튼 */
+.curriculum-image img {
+  display: block;
+
+  width: 210px;
+  max-width: 100%;
+
+  height: auto;
+
+  object-fit: contain;
+}
+
+.slider-content .divider {
+  flex: 0 0 1px !important;
+
+  display: block;
+
+  width: 1px !important;
+  min-width: 1px !important;
+  max-width: 1px !important;
+
+  height: 170px;
+
+  margin: 0 2px;
+
+  padding: 0 !important;
+
+  background: rgba(21, 184, 106, 0.45) !important;
+
+  border: 0 !important;
+
+  box-shadow: none !important;
+}
+
+.slider-content .list-decoration {
+  min-width: 220px;
+
+  margin: 0;
+
+  padding-left: 22px;
+}
+
+.slider-content .list-decoration li {
+  margin-bottom: 10px;
+
+  color: #475467;
+}
+
+/* Swiper 이전 / 다음 버튼 */
+
 .slider-button {
+  position: absolute;
+
+  z-index: 10;
+
   top: 16px;
 
-  z-index: 4;
+  display: grid;
 
-  width: 38px;
-  height: 38px;
+  place-items: center;
+
+  width: 40px;
+  height: 40px;
+
+  padding: 0;
+
+  border: 0;
 
   border-radius: 12px;
 
   background: var(--renew-surface-soft);
 
   color: var(--renew-green-dark);
+
+  cursor: pointer;
+
+  transition:
+    background-color 180ms ease,
+    opacity 180ms ease,
+    transform 180ms ease;
 }
 
+.slider-button.prev {
+  left: 16px;
+}
+
+.slider-button.next {
+  right: 16px;
+}
+
+.slider-button:hover:not(:disabled) {
+  background: #ddf8ea;
+
+  transform: translateY(-1px);
+}
+
+.slider-button.swiper-button-disabled,
 .slider-button:disabled {
-  opacity: 0.35;
+  opacity: 0.32;
 
   cursor: default;
+
+  transform: none;
+}
+
+.slider-button::after {
+  display: none;
 }
 
 /* =========================================================
@@ -757,7 +990,6 @@ header.renew-header {
   line-height: 1.78;
 }
 
-/* 작성자명은 항상 카드 아래쪽 */
 .student-name {
   margin-top: auto;
 
@@ -778,7 +1010,6 @@ header.renew-header {
   box-shadow: none;
 }
 
-/* 단계 설명 우측 정렬 */
 .process_card > p {
   margin-left: auto;
 
@@ -789,7 +1020,6 @@ header.renew-header {
 
 /* =========================================================
    강사진 소개
-   기존 디자인 방식으로 복구
    ========================================================= */
 
 .lecturer {
@@ -812,7 +1042,6 @@ header.renew-header {
   gap: 76px;
 }
 
-/* 흰색 카드 스타일 제거 */
 .lecturer .instructor-card,
 .lecturer .instructor-card:hover {
   flex: 1 1 0;
@@ -832,7 +1061,6 @@ header.renew-header {
   transform: none;
 }
 
-/* 원형 프로필 이미지 */
 .lecturer .instructor-card > img {
   width: min(100%, 280px);
 
@@ -890,17 +1118,21 @@ header.renew-header {
    ========================================================= */
 
 .faq-list {
+  width: 100%;
+
   max-width: 980px;
 
   margin: 0 auto;
 }
 
 .faq-item {
+  width: 100%;
+
   margin-bottom: 18px;
 
-  min-width: 0;
-
   overflow: hidden;
+
+  box-sizing: border-box;
 
   border: 1px solid var(--renew-line);
 
@@ -927,9 +1159,13 @@ header.renew-header {
   align-items: center;
   justify-content: space-between;
 
+  width: 100%;
+
   min-height: 84px;
 
   gap: 24px;
+
+  margin: 0;
 
   padding: 26px 28px;
 
@@ -954,7 +1190,6 @@ header.renew-header {
   display: none;
 }
 
-/* + 아이콘 */
 .faq-question::after {
   content: "+";
 
@@ -981,9 +1216,9 @@ header.renew-header {
 }
 
 .faq-item[open] .faq-question {
-  border-bottom: 1px solid rgba(21, 184, 106, 0.16);
-
   background: var(--renew-surface-soft);
+
+  border-bottom: 1px solid rgba(21, 184, 106, 0.16);
 }
 
 .faq-item[open] .faq-question::after {
@@ -991,24 +1226,18 @@ header.renew-header {
 }
 
 /*
-  details의 기본 display:none 동작을 덮어씌워
-  max-height와 opacity로 부드럽게 열리고 닫히게 합니다.
+  FAQ 애니메이션은 JavaScript에서
+  details 전체 높이를 계산해서 처리
 */
-details:not([open]) > .faq-answer {
-  display: block;
-}
 
-/* 닫힌 상태 */
 .faq-answer {
   display: block;
 
-  max-height: 0;
+  width: 100%;
 
   margin: 0;
 
-  padding: 0 28px;
-
-  overflow: hidden;
+  padding: 30px 28px 50px;
 
   box-sizing: border-box;
 
@@ -1019,43 +1248,10 @@ details:not([open]) > .faq-answer {
   font-size: 16px;
 
   line-height: 1.9;
-
-  opacity: 0;
-
-  transform: translateY(-8px);
-
-  transition:
-    max-height 450ms cubic-bezier(0.22, 0.61, 0.36, 1),
-    padding 400ms cubic-bezier(0.22, 0.61, 0.36, 1),
-    opacity 260ms ease,
-    transform 350ms ease;
 }
 
-/* 열린 상태 */
-.faq-item[open] > .faq-answer {
-  /*
-    긴 답변도 충분히 표시되도록
-    넉넉한 값으로 설정
-  */
-  max-height: 500px;
-
-  /* 답변 위 공간을 넉넉하게 */
-  padding: 30px 28px 34px;
-
-  opacity: 1;
-
-  transform: translateY(0);
-}
-
-/* 이전 CSS의 active 규칙 무효화 */
-.faq-item.active .faq-answer {
-  display: block;
-
-  width: auto;
-
-  height: auto;
-
-  box-shadow: none;
+.faq-item:not([open]) > .faq-answer {
+  display: none;
 }
 
 /* =========================================================
@@ -1087,7 +1283,7 @@ details:not([open]) > .faq-answer {
 }
 
 /* =========================================================
-   하단 지원 Sticky
+   Sticky CTA
    ========================================================= */
 
 .sticky {
@@ -1131,22 +1327,7 @@ footer .container {
 }
 
 /* =========================================================
-   프로젝트 안내 팝업
-   ========================================================= */
-
-#popup {
-  border: 1px solid var(--renew-line);
-
-  border-radius: 22px;
-
-  background: rgba(255, 255, 255, 0.97);
-
-  box-shadow: 0 24px 70px rgba(16, 24, 40, 0.22);
-}
-
-/* =========================================================
    Scroll Reveal
-   JavaScript가 있을 때만 적용됩니다.
    ========================================================= */
 
 .js-reveal {
@@ -1166,7 +1347,7 @@ footer .container {
 }
 
 /* =========================================================
-   모션 접근성
+   접근성
    ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
@@ -1198,8 +1379,6 @@ footer .container {
     padding: 96px 0;
   }
 
-  /* Header */
-
   .renew-header nav ul {
     gap: 20px;
   }
@@ -1207,8 +1386,6 @@ footer .container {
   .renew-header .nav-btn {
     display: none;
   }
-
-  /* Hero */
 
   .hero {
     min-height: auto;
@@ -1220,24 +1397,44 @@ footer .container {
     gap: 30px;
   }
 
-  .hero::before {
-    right: -5%;
+  .hero .container::after {
+    right: -60px;
 
-    width: 500px;
-    height: 440px;
+    width: 470px;
+    height: 430px;
   }
 
   .hero img {
     width: min(40vw, 390px);
   }
 
-  /* Program */
-
   .program .container {
     gap: 44px;
   }
 
-  /* Benefit */
+  .program .title {
+    flex-basis: 260px;
+
+    min-width: 260px;
+  }
+
+  .curriculum-slide {
+    min-height: 420px;
+  }
+
+  .slider-content {
+    padding: 30px 26px;
+
+    gap: 24px;
+  }
+
+  .curriculum-image {
+    flex-basis: 210px;
+  }
+
+  .curriculum-image img {
+    width: 180px;
+  }
 
   .benefit-cards ul {
     display: grid;
@@ -1248,8 +1445,6 @@ footer .container {
   .benefit-cards ul li {
     width: auto;
   }
-
-  /* Review */
 
   .review .container:nth-of-type(2) {
     gap: 18px;
@@ -1262,8 +1457,6 @@ footer .container {
 
     padding: 26px 22px;
   }
-
-  /* Lecturer */
 
   .lecturer .instructor-list {
     gap: 34px;
@@ -1290,8 +1483,6 @@ footer .container {
   .inner-pd {
     padding: 78px 0;
   }
-
-  /* Header */
 
   header.renew-header {
     height: 68px;
@@ -1406,17 +1597,15 @@ footer .container {
     align-items: flex-start;
   }
 
-  .hero::before {
+  .hero .container::after {
     top: auto;
     right: 50%;
-    bottom: 35px;
+    bottom: -10px;
 
-    width: 390px;
+    width: 380px;
     height: 330px;
 
-    transform: translateX(50%) rotate(-4deg);
-
-    filter: blur(26px);
+    transform: translateX(50%);
   }
 
   .title-text h2 {
@@ -1481,53 +1670,138 @@ footer .container {
 
   .program .container {
     flex-direction: column;
+
+    gap: 40px;
   }
 
   .program .title {
+    flex: none;
+
     min-width: 0;
+
+    padding-top: 0;
   }
 
   .program-list {
     width: 100%;
-
-    overflow: hidden;
   }
 
-  .progress {
-    min-width: 620px;
+  .progress-wrap {
+    padding: 18px 3px 18px;
   }
 
-  .sliderwrap {
-    min-height: 410px;
+  .progress::before {
+    left: 13px;
+    right: 13px;
+  }
+
+  .progress::after {
+    left: 13px;
+
+    width: calc((100% - 26px) * var(--curriculum-progress));
+  }
+
+  .slider-content .divider {
+    flex: 0 0 1px !important;
+
+    width: 70% !important;
+    max-width: 70% !important;
+    min-width: 0 !important;
+
+    height: 1px;
+
+    margin: 2px 0;
+  }
+
+  .progress-dot {
+    gap: 8px;
+  }
+
+  .progress-dot .circle {
+    width: 26px;
+    height: 26px;
+
+    border-width: 6px;
+  }
+
+  .progress-dot .circle.small {
+    width: 20px;
+    height: 20px;
+
+    margin-top: 3px;
+
+    border-width: 5px;
+  }
+
+  .progress .text-caption {
+    font-size: 11px;
+  }
+
+  .curriculum-swiper {
+    margin-top: 18px;
 
     border-radius: 22px;
   }
 
-  .slider > .text-heading6,
+  .curriculum-slide {
+    min-height: 480px;
+
+    padding: 22px 12px 26px;
+  }
+
+  .curriculum-slide > .text-heading6 {
+    padding: 0 48px;
+
+    font-size: 23px;
+  }
+
   .slider-description {
-    padding-right: 52px;
-    padding-left: 52px;
+    min-height: 0;
+
+    padding: 0 28px;
+
+    font-size: 14px;
   }
 
   .slider-content {
     flex-direction: column;
 
-    width: calc(100% - 24px);
+    min-height: 320px;
 
-    margin-right: 12px;
-    margin-left: 12px;
+    margin-top: 18px;
 
-    padding: 24px 12px;
+    padding: 26px 20px;
 
-    gap: 16px;
+    gap: 18px;
   }
 
-  .slider-content .divider {
-    display: none;
+  .curriculum-image {
+    flex: none;
+
+    width: 100%;
   }
 
-  .slider-content img {
-    width: 140px;
+  .curriculum-image img {
+    width: 150px;
+  }
+
+  .slider-content .list-decoration {
+    min-width: 0;
+  }
+
+  .slider-button {
+    top: 13px;
+
+    width: 36px;
+    height: 36px;
+  }
+
+  .slider-button.prev {
+    left: 12px;
+  }
+
+  .slider-button.next {
+    right: 12px;
   }
 
   /* Benefit */
@@ -1625,16 +1899,11 @@ footer .container {
   }
 
   .faq-answer {
-    padding-right: 20px;
-    padding-left: 20px;
+    padding: 26px 20px 38px;
 
     font-size: 15px;
 
     line-height: 1.85;
-  }
-
-  .faq-item[open] > .faq-answer {
-    padding: 26px 20px 28px;
   }
 
   /* CTA */
@@ -1690,8 +1959,6 @@ footer .container {
   .sticky > span.material-icons {
     display: none;
   }
-
-  /* Footer */
 
   footer .container {
     padding-bottom: 100px;
