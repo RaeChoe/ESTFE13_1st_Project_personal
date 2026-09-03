@@ -266,19 +266,13 @@ FAQ는 HTML 기본 요소인 `<details>`와 `<summary>`를 사용하여 기본�
 
 # 3. 팀원
 
-| 이름 | 역할 | 담당 섹션 | GitHub | 연락 |
-
-| --- | --- | --- | --- | --- |
-
-| 김&#8288;소&#8288;영 | 팀장 / UI 기획 / 디자인 | 회사소개 / 강사소개 / FAQ / CTA / Footer | [@s0y0ungk]\(https://github.com/s0y0ungk) | soyo2039@gmail.com |
-
-| 최&#8288;정&#8288;원 | FE 리드 / UI 기획 / 디자인 | 혜택 / 이벤트 / PR 영역 | [RaeChoe]\(https://github.com/RaeChoe) | picasomati@gmail.com |
-
-| 김&#8288;정&#8288;우 | UI 기획 / 디자인 | 문제제기 / 프로그램 소개 | [@casperjwk]\(https://github.com/casperjwk) | casperjwk@gmail.com |
-
-| 김&#8288;윤&#8288;수 | UI 기획 / 디자인 | 콘텐츠 영역 / 접근성 | [@Noonting00]\(https://github.com/Noonting00) | kys5826911@gmail.com |
-
-| 김&#8288;찬&#8288;희 | UI 기획 / 디자인 | Header / Hero | [@ckck912ck-lang]\(https://github.com/ckck912ck-lang) | ckck912ck@gmail.com |
+| 이름                 | 역할                       | 담당 섹션                                | GitHub                                                | 연락                 |
+| -------------------- | -------------------------- | ---------------------------------------- | ----------------------------------------------------- | -------------------- |
+| 김&#8288;소&#8288;영 | 팀장 / UI 기획 / 디자인    | 회사소개 / 강사소개 / FAQ / CTA / Footer | [@s0y0ungk]\(https://github.com/s0y0ungk)             | soyo2039@gmail.com   |
+| 최&#8288;정&#8288;원 | FE 리드 / UI 기획 / 디자인 | 혜택 / 이벤트 / PR 영역                  | [RaeChoe]\(https://github.com/RaeChoe)                | picasomati@gmail.com |
+| 김&#8288;정&#8288;우 | UI 기획 / 디자인           | 문제제기 / 프로그램 소개                 | [@casperjwk]\(https://github.com/casperjwk)           | casperjwk@gmail.com  |
+| 김&#8288;윤&#8288;수 | UI 기획 / 디자인           | 콘텐츠 영역 / 접근성                     | [@Noonting00]\(https://github.com/Noonting00)         | kys5826911@gmail.com |
+| 김&#8288;찬&#8288;희 | UI 기획 / 디자인           | Header / Hero                            | [@ckck912ck-lang]\(https://github.com/ckck912ck-lang) | ckck912ck@gmail.com  |
 
 ---
 
